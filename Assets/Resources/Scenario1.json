@@ -1,10 +1,17 @@
 {
   "steps": [
     {
+      "stepType": "minigame",
+      "instruction": "Kamu mendatangi korban",
+      "minigameID": "Walking",
+      "narrativeImage": "Motor",
+      "options": []
+    },
+    {
       "stepType": "dialog",
       "speakerName": "Narator",
       "instruction": "Kamu sedang dalam perjalanan pulang saat melihat keramaian di depan. Sebuah motor tergeletak hancur setelah bertabrakan dengan mobil.",
-      "narrativeImage": "CrashSite_Wide",
+      "narrativeImage": "TKP_Kecelakaan",
       "options": []
     },
     {

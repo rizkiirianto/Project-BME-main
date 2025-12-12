@@ -135,6 +135,8 @@ public class GameManager : MonoBehaviour
         playerModel.SetActive(true);
         quizUIParent.SetActive(true);
         feedbackPanel.SetActive(false);
+
+        LoadNarrativeImage(step.narrativeImage);
         
         // Tampilkan teks dialog
         // Jika ada speakerName, formatnya: "Nama: Teks"
