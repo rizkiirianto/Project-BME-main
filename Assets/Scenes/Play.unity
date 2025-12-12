@@ -3117,12 +3117,6 @@ MonoBehaviour:
   playerModel: {fileID: 333484379}
   clickAdvanceButton: {fileID: 1635994297}
   miniGameRegistry:
-  - id: NosePress
-    prefab: {fileID: 7741574043899763832, guid: 4b25b2ce62c0a84448b33b37780051e9, type: 3}
-  - id: NoseWipe
-    prefab: {fileID: 4398300691489072924, guid: 54671ddb2ba15f34b8170c3659badd26, type: 3}
-  - id: BersihkanKotoran
-    prefab: {fileID: 55893836700983047, guid: d3fc72dbd356ad44aa1f1ccdcf8cd5ca, type: 3}
   - id: Walking
     prefab: {fileID: 5661616717015492224, guid: d3601282982884bb9b1d14750f3344c3, type: 3}
 --- !u!1 &1866484705

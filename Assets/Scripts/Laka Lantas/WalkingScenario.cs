@@ -1,28 +1,38 @@
 using UnityEngine;
 
-public class WalkingScenario : MonoBehaviour
+// 1. Tambahkan ", IMiniGame" agar script ini dikenali oleh GameManager universal
+public class WalkingScenario : MonoBehaviour, IMiniGame
 {
     [Header("References")]
-    [SerializeField] private GameManager gameManager;
+    // Hapus [SerializeField] karena GameManager akan diberikan otomatis via kode
+    private GameManager gameManager; 
     
-    // Kita butuh referensi langsung ke objek fisik karena script ada di Parent
-    [SerializeField] public Collider2D targetZone; // Masukkan object 'Square' ke sini
-    [SerializeField] public Collider2D playerCollider; // Masukkan object 'Player' ke sini
+    [SerializeField] public Collider2D targetZone; 
+    [SerializeField] public Collider2D playerCollider; 
 
     [Header("Settings")]
     [SerializeField] private float requiredStayTime = 3f;
 
-    [Header("Debug Info")] // Supaya bisa dilihat di inspector
+    [Header("Debug Info")]
     public float stayTimer = 0f;
     private bool completed = false;
+    private bool isGameActive = false; // Tambahan: Supaya timer tidak jalan sebelum game resmi dimulai
+
+    // 2. Implementasi fungsi wajib dari Interface IMiniGame
+    public void BeginGame(GameManager gm)
+    {
+        // GameManager memberikan dirinya sendiri ke script ini
+        this.gameManager = gm;
+        
+        // Mulai logika game
+        isGameActive = true; 
+        Debug.Log("Minigame Walking Dimulai via Interface!");
+        
+        // (Opsional) Validasi targetZone/playerCollider bisa pindah ke sini atau tetap di Start
+    }
 
     void Start()
     {
-        if (gameManager == null)
-        {
-            gameManager = Object.FindFirstObjectByType<GameManager>();
-        }
-
         // Validasi agar tidak error
         if (targetZone == null || playerCollider == null)
         {
@@ -33,10 +43,9 @@ public class WalkingScenario : MonoBehaviour
 
     void Update()
     {
-        if (completed) return;
+        // Cek isGameActive agar logika tidak jalan sebelum GameManager siap
+        if (completed || !isGameActive) return;
 
-        // Cek apakah Player bersentuhan dengan Target Zone (Square)
-        // IsTouching memerlukan Rigidbody2D pada salah satu objek (biasanya Player)
         if (targetZone.IsTouching(playerCollider))
         {
             HandleStay();
@@ -50,7 +59,6 @@ public class WalkingScenario : MonoBehaviour
     private void HandleStay()
     {
         stayTimer += Time.deltaTime;
-        // Debug.Log("Timer berjalan: " + stayTimer); // Uncomment jika ingin debug
 
         if (stayTimer >= requiredStayTime)
         {
@@ -70,10 +78,15 @@ public class WalkingScenario : MonoBehaviour
     private void CompleteScenario()
     {
         completed = true;
+        isGameActive = false;
         Debug.Log("Scenario Selesai!");
+        
+        // Objek dimatikan setelah lapor ke GameManager
         this.gameObject.SetActive(false);
+        
         if (gameManager != null)
         {
+            // Panggil fungsi universal di GameManager
             gameManager.OnMiniGameComplete("Player reach target");
         }
     }

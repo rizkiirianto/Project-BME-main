@@ -81,7 +81,7 @@
     {
       "stepType": "minigame",
       "instruction": "Tekan luka korban terus menerus! Jangan dilepas sampai bar penuh.",
-      "minigameID": "NosePress",
+      "minigameID": "TekanLuka",
       "narrativeImage": "Minigame_Press_BG",
       "goldTime": 10,
       "silverTime": 15,
@@ -117,7 +117,7 @@
     {
       "stepType": "minigame",
       "instruction": "Lakukan Wound Packing (Sumbat luka) & Balut tekan kembali!",
-      "minigameID": "NoseWipe",
+      "minigameID": "SumbatdanBalut",
       "narrativeImage": "WoundPacking_BG",
       "goldTime": 20,
       "silverTime": 30,

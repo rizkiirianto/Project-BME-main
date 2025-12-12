@@ -197,41 +197,32 @@ public class GameManager : MonoBehaviour
     {
         playerModel.SetActive(false);
         quizUIParent.SetActive(false);
+        
+        // 1. Cari prefab berdasarkan ID di Registry (tetap perlu ini untuk spawn)
         MiniGameRegistry gameToStart = miniGameRegistry.FirstOrDefault(mg => mg.id == miniGameStep.minigameID);
 
         if (gameToStart != null && gameToStart.prefab != null)
         {
             minigameStartTime = Time.time;
+            // Spawn Prefab
             activeMiniGameInstance = Instantiate(gameToStart.prefab, canvasTransform);
 
-            if (miniGameStep.minigameID == "NosePress")
+            // --- MAGIC HAPPENS HERE ---
+            // Kita tidak peduli nama script-nya apa, kita cuma cari 'IMiniGame'
+            IMiniGame gameScript = activeMiniGameInstance.GetComponent<IMiniGame>();
+
+            if (gameScript != null)
             {
-                var miniGameScript = activeMiniGameInstance.GetComponent<NosePressMiniGame>();
-                if (miniGameScript != null)
-                {
-                    miniGameScript.StartMiniGame(this, feedbackText);
-                }
+                gameScript.BeginGame(this); // Satu perintah untuk semua jenis game!
             }
-            else if (miniGameStep.minigameID == "NoseWipe")
+            else
             {
-                var miniGameScript = activeMiniGameInstance.GetComponent<TargetedWipe>();
-                if (miniGameScript != null)
-                {
-                    miniGameScript.StartMiniGame(this);
-                }
-            }
-            else if (miniGameStep.minigameID == "BersihkanKotoran")
-            {
-                var miniGameScript = activeMiniGameInstance.GetComponent<MinigameBersihkanKotoran>();
-                if (miniGameScript != null)
-                {
-                    miniGameScript.StartMiniGame(this);
-                }
+                Debug.LogError($"Prefab {miniGameStep.minigameID} tidak punya script yang implement IMiniGame!");
             }
         }
         else
         {
-            Debug.LogError($"Prefab untuk minigame dengan ID '{miniGameStep.minigameID}' tidak ditemukan!");
+            Debug.LogError($"Prefab minigame ID '{miniGameStep.minigameID}' tidak ditemukan di Registry!");
         }
     }
 
