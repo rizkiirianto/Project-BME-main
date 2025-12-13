@@ -102,18 +102,33 @@ public class WoundPackingMiniGame : MonoBehaviour, IMiniGame
     public void OnKlikPerban()
     {
         if (!isPhaseTwo) return;
-        gambarPaha.SetActive(false);
-        // Cek agar tidak error index array
+
+        // Safety check: Ensure we don't go out of bounds of the array
         if (clickCount < tahapanPerban.Length)
         {
+            // Play Audio
             if (audioSfx && suaraKain) audioSfx.PlayOneShot(suaraKain);
 
-            // Munculkan gambar perban tahap ini
-            tahapanPerban[clickCount-1].SetActive(false);
+            // --- STEP 1: HIDE THE PREVIOUS IMAGE ---
+            if (clickCount == 0)
+            {
+                // If this is the very first click, hide the base leg (Gambar Paha)
+                if (gambarPaha != null) gambarPaha.SetActive(false);
+            }
+            else
+            {
+                // If this is the 2nd or 3rd click, hide the PREVIOUS bandage
+                // (clickCount - 1 is safe here because clickCount > 0)
+                tahapanPerban[clickCount - 1].SetActive(false);
+            }
+
+            // --- STEP 2: SHOW THE CURRENT IMAGE ---
             tahapanPerban[clickCount].SetActive(true);
+
+            // --- STEP 3: INCREMENT & CHECK WIN ---
             clickCount++;
 
-            // Jika sudah mencapai target atau gambar habis
+            // Check if we reached the target
             if (clickCount >= targetWraps)
             {
                 Invoke("SelesaiGame", 0.5f);
