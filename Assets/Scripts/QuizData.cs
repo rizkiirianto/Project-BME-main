@@ -9,6 +9,7 @@ public class Option
     public string feedback;
     public string narrative;
     public string narrativeImage;
+    public string backgroundImage;
 }
 
 [System.Serializable]
@@ -22,6 +23,7 @@ public class Step
     public string narrativeImage;
     public float goldTime;
     public float silverTime;
+    public string backgroundImage;
 }
 
 [System.Serializable]

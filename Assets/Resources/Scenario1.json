@@ -1,16 +1,16 @@
 {
   "steps": [
     {
-      "stepType": "minigame",
-      "instruction": "Kamu mendatangi korban",
-      "minigameID": "Walking",
+      "stepType": "dialog",
+      "speakerName": "Narator",
+      "instruction": "Kamu sedang dalam perjalanan pulang saat melihat keramaian di depan. Sebuah motor tergeletak hancur setelah bertabrakan dengan mobil.",
       "narrativeImage": "Motor",
       "options": []
     },
     {
-      "stepType": "dialog",
-      "speakerName": "Narator",
-      "instruction": "Kamu sedang dalam perjalanan pulang saat melihat keramaian di depan. Sebuah motor tergeletak hancur setelah bertabrakan dengan mobil.",
+      "stepType": "minigame",
+      "instruction": "Kamu mendatangi korban",
+      "minigameID": "Walking",
       "narrativeImage": "TKP_Kecelakaan",
       "options": []
     },
@@ -25,7 +25,7 @@
       "stepType": "quiz",
       "instruction": "Kamu baru tiba di lokasi. Sebelum lari menolong korban, apa yang PERTAMA kali harus kamu lakukan?",
       "minigameID": "",
-      "narrativeImage": "SceneSafety_Decision",
+      "backgroundImage": "SceneSafety_Decision",
       "options": [
         {
           "text": "Periksa keamanan sekitar (Lalu Lintas)",
@@ -57,7 +57,7 @@
       "stepType": "quiz",
       "instruction": "Darah mengalir deras dari paha korban (Pendarahan Aktif). Apa langkah pertamamu?",
       "minigameID": "",
-      "narrativeImage": "Leg_Bleeding_Active",
+      "backgroundImage": "Leg_Bleeding_Active",
       "options": [
         {
           "text": "Lakukan Tekanan Langsung (Direct Pressure)",
@@ -81,7 +81,7 @@
     {
       "stepType": "minigame",
       "instruction": "Tekan luka korban terus menerus! Jangan dilepas sampai bar penuh.",
-      "minigameID": "TekanLuka",
+      "minigameID": "BleedControl",
       "narrativeImage": "Minigame_Press_BG",
       "goldTime": 10,
       "silverTime": 15,
@@ -98,7 +98,7 @@
       "stepType": "quiz",
       "instruction": "Darah masih merembes keluar dari kain pertama. Apa yang harus dilakukan?",
       "minigameID": "",
-      "narrativeImage": "Blood_Soaking",
+      "backgroundImage": "Blood_Soaking",
       "options": [
         {
           "text": "Tumpuk kain baru di atasnya",
@@ -134,7 +134,7 @@
       "stepType": "quiz",
       "instruction": "Korban pucat, dingin, dan pusing. Ini tanda-tanda SYOK. Apa posisi terbaik untuknya?",
       "minigameID": "",
-      "narrativeImage": "Shock_Symptoms",
+      "backgroundImage": "Shock_Symptoms",
       "options": [
         {
           "text": "Selimuti & posisikan telentang (Supine)",
@@ -166,7 +166,7 @@
       "stepType": "quiz",
       "instruction": "Saksi (Maya) panik tapi ingin membantu. Tugas apa yang paling tepat untuk didelegasikan padanya?",
       "minigameID": "",
-      "narrativeImage": "Maya_Panic",
+      "backgroundImage": "Maya_Panic",
       "options": [
         {
           "text": "Minta dia telepon Ambulans (118/119)",

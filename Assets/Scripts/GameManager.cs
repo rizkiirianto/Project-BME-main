@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
     public Transform canvasTransform;
     public TextMeshProUGUI narrativeText;
     public Image narrativeImage;
+    public Image backgroundImage;
     public TextMeshProUGUI scoreText;
     public GameObject playerModel;
     [Tooltip("Panel Button transparan untuk melanjutkan dialog")]
@@ -63,6 +64,33 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void LoadBackgroundImage (string imageName)
+    {
+        if (backgroundImage != null && !string.IsNullOrEmpty(imageName))
+        {
+            // Load sprite dari folder Resources
+            Sprite newSprite = Resources.Load<Sprite>(imageName.Replace(".png", "").Replace(".jpg", ""));
+            if (newSprite != null)
+            {
+                backgroundImage.sprite = newSprite;
+                backgroundImage.gameObject.SetActive(true);
+                Debug.Log($"Berhasil memuat gambar naratif: {imageName}");
+            }
+            else
+            {
+                Debug.LogWarning($"Gambar naratif tidak ditemukan: {imageName}");
+                backgroundImage.gameObject.SetActive(false);
+            }
+        }
+        else
+        {
+            // Sembunyikan gambar jika tidak ada nama file yang diberikan
+            if (backgroundImage != null)
+            {
+                backgroundImage.gameObject.SetActive(false);
+            }
+        }
+    }
     private void LoadNarrativeImage(string imageName)
     {
         if (narrativeImage != null && !string.IsNullOrEmpty(imageName))
@@ -132,7 +160,7 @@ public class GameManager : MonoBehaviour
     }
     private void ShowDialog(Step step)
     {
-        playerModel.SetActive(true);
+        playerModel.SetActive(false);
         quizUIParent.SetActive(true);
         feedbackPanel.SetActive(false);
 
@@ -165,10 +193,12 @@ public class GameManager : MonoBehaviour
     }
     private void ShowQuiz(Step quizStep)
     {
-        playerModel.SetActive(true);
+        playerModel.SetActive(false);
         quizUIParent.SetActive(true);
         feedbackPanel.SetActive(false);
         questionText.text = quizStep.instruction;
+
+        LoadBackgroundImage(quizStep.backgroundImage);
 
         currentQuestionAttempts = 0;
 
@@ -307,6 +337,7 @@ public class GameManager : MonoBehaviour
 
         // Load gambar naratif untuk minigame jika ada
         LoadNarrativeImage(quizData.steps[currentStepIndex].narrativeImage);
+        LoadBackgroundImage(quizData.steps[currentStepIndex].backgroundImage);
 
         feedbackText.text = successFeedback;
         feedbackPanel.SetActive(true);
