@@ -63,7 +63,7 @@ public class WoundPackingMiniGame : MonoBehaviour, IMiniGame
     }
 
     // 2. Fungsi untuk Tombol Kassa (Fase 1)
-    public void OnKlikKassa()
+    public void OnGauzeDropped()
     {
         if (isPhaseTwo) return;
 
